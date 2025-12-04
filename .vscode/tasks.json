@@ -1,0 +1,242 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Django: runserver",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "runserver"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Django: migrate",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "migrate"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: makemigrations",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "makemigrations"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: createsuperuser",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "createsuperuser"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: shell",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "shell"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: collectstatic",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "collectstatic",
+        "--noinput"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: test",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "test"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Django: showmigrations",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "project/manage.py",
+        "showmigrations"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Ruff: Check",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Ruff: Format",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "-m",
+        "ruff",
+        "format",
+        "."
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "ブラウザで開く（トップページ）",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "scripts/open_browser.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "ブラウザで開く（管理画面）",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "scripts/open_browser.py",
+        "http://127.0.0.1:8000/admin/"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "ブラウザで開く（カスタムURL）",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "scripts/open_browser.py",
+        "${input:customUrl}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "customUrl",
+      "type": "promptString",
+      "description": "開くURL（例: http://127.0.0.1:8000/myapp/）",
+      "default": "http://127.0.0.1:8000/"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}ログイン - {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-base-200">
+    <div class="card w-full max-w-md bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title text-2xl font-bold text-center mb-6">ログイン</h2>
+            
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">ユーザー名</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        class="input input-bordered w-full" 
+                        required
+                        autofocus
+                    >
+                </div>
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">パスワード</span>
+                    </label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="input input-bordered w-full" 
+                        required
+                    >
+                </div>
+                
+                <div class="form-control mt-6">
+                    <button type="submit" class="btn btn-primary w-full">
+                        ログイン
+                    </button>
+                </div>
+            </form>
+            
+            <div class="divider"></div>
+            
+            <div class="text-center text-sm text-base-content/70">
+                <p>テストユーザーでログインする場合は、</p>
+                <p>管理画面でユーザーを作成してください。</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

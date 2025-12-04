@@ -1,0 +1,78 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Django: runserver",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/project/manage.py",
+      "args": [
+        "runserver"
+      ],
+      "django": true,
+      "justMyCode": false,
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}/project",
+      "env": {},
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Django: runserver (カスタムポート)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/project/manage.py",
+      "args": [
+        "runserver",
+        "8080"
+      ],
+      "django": true,
+      "justMyCode": false,
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}/project",
+      "env": {},
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Django: migrate",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/project/manage.py",
+      "args": [
+        "migrate"
+      ],
+      "django": true,
+      "justMyCode": true,
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}/project",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Django: makemigrations",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/project/manage.py",
+      "args": [
+        "makemigrations"
+      ],
+      "django": true,
+      "justMyCode": true,
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}/project",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Django: shell",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/project/manage.py",
+      "args": [
+        "shell"
+      ],
+      "django": true,
+      "justMyCode": true,
+      "python": "${command:python.interpreterPath}",
+      "cwd": "${workspaceFolder}/project",
+      "console": "integratedTerminal"
+    }
+  ]
+}

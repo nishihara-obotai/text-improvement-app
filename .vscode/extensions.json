@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "anthropic.claude-code",
+    "batisteo.vscode-django",
+    "qwtel.sqlite-viewer",
+    "charliermarsh.ruff",
+    "spmeesseman.vscode-taskexplorer"
+  ]
+}

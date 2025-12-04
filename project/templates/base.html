@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Djangoアプリケーション{% endblock %}">
+    <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+
+    <!-- daisyUI v5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <!-- TailwindCSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- TailwindCSS v4 + daisyUI v5 カスタム設定 -->
+    <style type="text/tailwindcss">
+        @theme {
+            /* ビジネス向けの落ち着いた色合い（メインカラー：ブルー系） */
+            --color-primary-50: #f0f9ff;
+            --color-primary-100: #e0f2fe;
+            --color-primary-200: #bae6fd;
+            --color-primary-300: #7dd3fc;
+            --color-primary-400: #38bdf8;
+            --color-primary-500: #0ea5e9;
+            --color-primary-600: #0284c7;
+            --color-primary-700: #0369a1;
+            --color-primary-800: #075985;
+            --color-primary-900: #0c4a6e;
+
+            /* 差し色（アクセントカラー：エメラルド系） */
+            --color-accent-50: #ecfdf5;
+            --color-accent-100: #d1fae5;
+            --color-accent-200: #a7f3d0;
+            --color-accent-300: #6ee7b7;
+            --color-accent-400: #34d399;
+            --color-accent-500: #10b981;
+            --color-accent-600: #059669;
+            --color-accent-700: #047857;
+            --color-accent-800: #065f46;
+            --color-accent-900: #064e3b;
+
+            /* セカンダリカラー（グレー系） */
+            --color-secondary-500: #64748b;
+            --color-secondary-600: #475569;
+            --color-secondary-700: #334155;
+
+            /* daisyUIカラー設定 */
+            --color-primary: #0ea5e9;
+            --color-secondary: #64748b;
+            --color-accent: #10b981;
+            --color-neutral: #374151;
+            --color-base-100: #ffffff;
+            --color-base-200: #f9fafb;
+            --color-base-300: #e5e7eb;
+            --color-info: #0ea5e9;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+
+            /* 角丸の設定（ビジネス向けに控えめ） */
+            --radius-sm: 0.125rem;
+            --radius: 0.1875rem;
+            --radius-md: 0.1875rem;
+            --radius-lg: 0.25rem;
+            --radius-xl: 0.3125rem;
+        }
+    </style>
+
+    <!-- daisyUI v5 カスタムテーマ定義 -->
+    <style>
+        [data-theme="mytheme"] {
+            /* daisyUIテーマカラー */
+            --p: 206 100% 50%;        /* primary: #0ea5e9 (sky-500) */
+            --pc: 0 0% 100%;          /* primary-content: white */
+            --s: 210 20% 49%;         /* secondary: #64748b (slate-500) */
+            --sc: 0 0% 100%;          /* secondary-content: white */
+            --a: 160 84% 39%;         /* accent: #10b981 (emerald-500) */
+            --ac: 0 0% 100%;          /* accent-content: white */
+            --n: 220 13% 29%;         /* neutral: #374151 (gray-700) */
+            --nc: 0 0% 100%;          /* neutral-content: white */
+            --b1: 0 0% 100%;          /* base-100: white */
+            --b2: 220 17% 98%;        /* base-200: #f9fafb (gray-50) */
+            --b3: 220 14% 91%;        /* base-300: #e5e7eb (gray-200) */
+            --bc: 220 13% 18%;        /* base-content: #1f2937 (gray-800) */
+            --in: 206 100% 50%;       /* info: #0ea5e9 */
+            --su: 160 84% 39%;        /* success: #10b981 */
+            --wa: 38 92% 50%;         /* warning: #f59e0b */
+            --er: 4 90% 58%;          /* error: #ef4444 */
+
+            /* 角丸の設定 */
+            --rounded-box: 0.1875rem;
+            --rounded-btn: 0.1875rem;
+            --rounded-badge: 0.1875rem;
+            --tab-radius: 0.1875rem;
+
+            /* ボーダー幅 */
+            --border-btn: 0.0625rem;
+
+            /* その他の設定 */
+            --btn-text-case: none;
+        }
+    </style>
+
+    <!-- カスタムスタイル（デザインガイドライン準拠） -->
+    <style>
+        /* ボタンのスタイル調整（紫色を避ける） */
+        .btn {
+            border-width: 0.0625rem;
+            text-transform: none;
+            font-weight: 500;
+            padding: 0.375rem 0.75rem;
+            min-height: 2rem;
+            height: auto;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            min-height: 1.5rem;
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .btn-lg {
+            padding: 0.5rem 1rem;
+            min-height: 2.5rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        .btn-square {
+            width: 2rem;
+            height: 2rem;
+            min-height: 2rem;
+            padding: 0.25rem;
+        }
+
+        .btn-square.btn-sm {
+            width: 1.5rem;
+            height: 1.5rem;
+            min-height: 1.5rem;
+            padding: 0.125rem;
+        }
+
+        .btn-square.btn-lg {
+            width: 2.5rem;
+            height: 2.5rem;
+            min-height: 2.5rem;
+            padding: 0.375rem;
+        }
+
+        .btn-ghost {
+            background-color: transparent !important;
+            border-color: transparent !important;
+        }
+
+        .btn-ghost:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .btn-primary {
+            background-color: #0ea5e9 !important; /* sky-500 */
+            border-color: #0284c7 !important; /* sky-600 */
+            color: white !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #0284c7 !important; /* sky-600 */
+            border-color: #0369a1 !important; /* sky-700 */
+        }
+
+        .btn-secondary {
+            background-color: #64748b !important; /* slate-500 */
+            border-color: #475569 !important; /* slate-600 */
+            color: white !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569 !important; /* slate-600 */
+            border-color: #334155 !important; /* slate-700 */
+        }
+
+        .btn-accent {
+            background-color: #10b981 !important; /* emerald-500 */
+            border-color: #059669 !important; /* emerald-600 */
+            color: white !important;
+        }
+
+        .btn-accent:hover {
+            background-color: #059669 !important; /* emerald-600 */
+            border-color: #047857 !important; /* emerald-700 */
+        }
+
+        /* グラデーションを避ける（単色に） */
+        .btn, .card, .alert, .menu li > *, .navbar {
+            background-image: none !important;
+        }
+
+        /* ホバー時の状態を明確に */
+        .btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        /* カードのパディングを小さく */
+        .card-body {
+            padding: 1rem;
+        }
+
+        /* アラートのパディングを小さく */
+        .alert {
+            padding: 0.75rem 1rem;
+        }
+
+        /* メニュー項目のスタイル調整 */
+        .menu li > * {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border-radius: 0.1875rem;
+            text-align: left;
+        }
+
+        .menu li > *:hover {
+            background-color: rgba(14, 165, 233, 0.1) !important; /* primary with opacity */
+        }
+
+        .menu li > *.active {
+            background-color: #0ea5e9 !important; /* primary */
+            color: white !important;
+        }
+
+        /* Navbarのパディングを小さく */
+        .navbar {
+            padding: 0.5rem 1rem;
+            min-height: 3.5rem;
+        }
+
+        /* Drawerのコンテンツパディングを調整 */
+        .drawer-content {
+            padding: 0;
+        }
+
+        /* 全体的な余白の調整（コンパクトに） */
+        .p-8 {
+            padding: 1rem !important;
+        }
+
+        .p-6 {
+            padding: 1rem !important;
+        }
+
+        .p-4 {
+            padding: 0.75rem !important;
+        }
+
+        .p-3 {
+            padding: 0.75rem !important;
+        }
+
+        .mb-6 {
+            margin-bottom: 0.75rem !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 0.5rem !important;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem !important;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem !important;
+        }
+
+        /* テキストサイズの調整 */
+        h1, .text-xl {
+            font-size: 1.125rem !important;
+        }
+
+        h2, .text-lg {
+            font-size: 1rem !important;
+        }
+
+        .text-xs {
+            font-size: 0.75rem !important;
+        }
+
+        /* 角丸の調整（グローバル設定） */
+        .rounded {
+            border-radius: 0.1875rem !important;
+        }
+
+        .rounded-sm {
+            border-radius: 0.125rem !important;
+        }
+
+        .rounded-md {
+            border-radius: 0.1875rem !important;
+        }
+
+        .rounded-lg {
+            border-radius: 0.25rem !important;
+        }
+
+        .rounded-xl {
+            border-radius: 0.3125rem !important;
+        }
+
+        /* カード、ボタン、アラート等の角丸を統一 */
+        .card, .btn, .alert, .input, .textarea, .select,
+        .modal-box, .drawer-side aside, .navbar {
+            border-radius: 0.1875rem !important;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body data-theme="mytheme" class="{% block body_class %}bg-gray-50 font-sans antialiased{% endblock %}">
+    {% block body_content %}
+    <div class="{% block container_class %}min-h-screen{% endblock %}">
+        {% block page_wrapper %}
+        <div class="{% block page_wrapper_class %}{% endblock %}">
+            <!-- ページヘッダー -->
+            {% block page_header %}{% endblock %}
+
+            <!-- メッセージ表示（Djangoのメッセージフレームワーク） -->
+            {% if messages %}
+            <div class="{% block messages_container_class %}mb-6{% endblock %}">
+                {% for message in messages %}
+                <div class="p-4 mb-4 rounded {% if message.tags == 'error' %}bg-red-50 text-red-800{% elif message.tags == 'success' %}bg-green-50 text-green-800{% elif message.tags == 'warning' %}bg-yellow-50 text-yellow-800{% else %}bg-blue-50 text-blue-800{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- コンテンツ -->
+            {% block content %}
+            <div class="bg-white rounded shadow-sm p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">ようこそ</h2>
+                <p class="text-gray-600">このページはbase.htmlを使用しています。</p>
+            </div>
+            {% endblock %}
+        </div>
+        {% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}履歴詳細 - {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">履歴詳細</h1>
+        <a href="{% url 'textapp:history_list' %}" class="btn btn-sm btn-outline">
+            一覧に戻る
+        </a>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <div class="flex justify-between items-start mb-4">
+                <h2 class="card-title">{{ text.created_at|date:"Y年m月d日 H:i" }}</h2>
+                <div class="badge badge-primary">{{ text.updated_at|date:"Y/m/d H:i" }} 更新</div>
+            </div>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">元の文章</span>
+                    </label>
+                    <textarea 
+                        name="original_text" 
+                        class="textarea textarea-bordered h-32 w-full" 
+                        required
+                    >{{ text.original_text }}</textarea>
+                </div>
+                
+                <div class="flex gap-2">
+                    <button 
+                        type="submit" 
+                        name="action" 
+                        value="improve" 
+                        class="btn btn-primary"
+                    >
+                        再改善する
+                    </button>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">改善された文章</span>
+                    </label>
+                    <textarea 
+                        name="improved_text" 
+                        class="textarea textarea-bordered h-32 w-full bg-accent/10" 
+                        readonly
+                    >{{ text.improved_text }}</textarea>
+                </div>
+                
+                <div class="card-actions justify-between">
+                    <form method="post" action="{% url 'textapp:history_delete' text.pk %}">
+                        {% csrf_token %}
+                        <button 
+                            type="submit" 
+                            class="btn btn-error"
+                            onclick="return confirm('本当に削除しますか？')"
+                        >
+                            削除
+                        </button>
+                    </form>
+                    
+                    <button 
+                        type="submit" 
+                        name="action" 
+                        value="save" 
+                        class="btn btn-success"
+                    >
+                        保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

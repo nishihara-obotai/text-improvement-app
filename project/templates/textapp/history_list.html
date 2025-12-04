@@ -1,0 +1,67 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}履歴 - {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">履歴</h1>
+    
+    {% if texts %}
+    <div class="grid gap-4">
+        {% for text in texts %}
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="card-title">{{ text.created_at|date:"Y年m月d日 H:i" }}</h2>
+                    <div class="badge badge-primary">{{ text.updated_at|date:"Y/m/d H:i" }} 更新</div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="font-semibold mb-2 text-sm text-base-content/70">元の文章</h3>
+                        <div class="p-3 bg-base-200 rounded-lg">
+                            <p class="text-sm whitespace-pre-wrap line-clamp-3">{{ text.original_text }}</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold mb-2 text-sm text-base-content/70">改善された文章</h3>
+                        <div class="p-3 bg-accent/10 rounded-lg">
+                            <p class="text-sm whitespace-pre-wrap line-clamp-3">{{ text.improved_text }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-actions justify-end mt-4">
+                    <a href="{% url 'textapp:history_detail' text.pk %}" class="btn btn-sm btn-primary">
+                        詳細・編集
+                    </a>
+                    <form method="post" action="{% url 'textapp:history_delete' text.pk %}" class="inline">
+                        {% csrf_token %}
+                        <button 
+                            type="submit" 
+                            class="btn btn-sm btn-error"
+                            onclick="return confirm('本当に削除しますか？')"
+                        >
+                            削除
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body text-center">
+            <p class="text-base-content/70">まだ履歴がありません</p>
+            <div class="card-actions justify-center mt-4">
+                <a href="{% url 'textapp:home' %}" class="btn btn-primary">
+                    文章を改善する
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+<!-- daisyUI Drawer（レスポンシブサイドバー） -->
+<div class="drawer lg:drawer-open">
+    <!-- Drawer Toggle（モバイル用チェックボックス） -->
+    <input id="sidebar-drawer" type="checkbox" class="drawer-toggle" />
+
+    <!-- Drawer Content（メインコンテンツエリア） -->
+    <div class="drawer-content flex flex-col">
+        <!-- Navbar（モバイル用ヘッダー） -->
+        <div class="navbar bg-base-100 shadow-md lg:hidden">
+            <div class="flex-none">
+                <label for="sidebar-drawer" class="btn btn-square btn-ghost">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </label>
+            </div>
+            <div class="flex-1">
+                <h1 class="text-base font-bold ml-2">
+                    {% block mobile_title %}{{ SITE_NAME }}{% endblock %}
+                </h1>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-base-200">
+            <div class="p-3 lg:p-4">
+                <!-- ページヘッダー -->
+                {% block page_header %}{% endblock %}
+
+                <!-- メッセージ表示（Djangoのメッセージフレームワーク） -->
+                {% if messages %}
+                <div class="mb-3">
+                    {% for message in messages %}
+                    <div role="alert" class="alert {% if message.tags == 'error' %}alert-error{% elif message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %} mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24">
+                            {% if message.tags == 'error' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            {% elif message.tags == 'success' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            {% elif message.tags == 'warning' %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            {% else %}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            {% endif %}
+                        </svg>
+                        <span>{{ message }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- コンテンツ -->
+                {% block content %}
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">ようこそ</h2>
+                        <p>このページはbase_sidebar.htmlを使用しています。daisyUIのDrawerコンポーネントで実装されています。</p>
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Drawer Side（サイドバー） -->
+    <div class="drawer-side">
+        <label for="sidebar-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <aside class="bg-base-100 w-64 min-h-full flex flex-col">
+            <!-- ロゴ・タイトル -->
+            <div class="p-4 border-b border-base-300">
+                <h1 class="text-lg font-bold">
+                    {% block site_title %}{{ SITE_NAME }}{% endblock %}
+                </h1>
+            </div>
+
+            <!-- ナビゲーションメニュー -->
+            <nav class="flex-1 overflow-y-auto">
+                <ul class="menu p-2 w-full">
+                    {% block navigation %}
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'textapp:home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                            ホーム
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'textapp:history_list' %}" class="{% if request.resolver_match.url_name == 'history_list' or request.resolver_match.url_name == 'history_detail' %}active{% endif %}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            履歴
+                        </a>
+                    </li>
+                    <li class="mt-4">
+                        <a href="{% url 'textapp:logout' %}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                            ログアウト
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'textapp:login' %}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            ログイン
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endblock %}
+                </ul>
+            </nav>
+
+            <!-- フッター情報 -->
+            <div class="p-3 border-t border-base-300">
+                <div class="text-xs text-base-content opacity-60">
+                    {% block sidebar_footer %}
+                    {% if user.is_authenticated %}
+                    <p class="font-semibold mb-1">{{ user.username }}</p>
+                    {% endif %}
+                    <p>&copy; {% now "Y" %} {{ SITE_NAME }}</p>
+                    {% endblock %}
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

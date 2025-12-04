@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found - ページが見つかりません</title>
+
+    <!-- TailwindCSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- TailwindCSSカスタム設定 -->
+    <style type="text/tailwindcss">
+        @theme {
+            /* ビジネス向けの落ち着いた色合い（メインカラー：ブルー系） */
+            --color-primary-50: #f0f9ff;
+            --color-primary-100: #e0f2fe;
+            --color-primary-200: #bae6fd;
+            --color-primary-300: #7dd3fc;
+            --color-primary-400: #38bdf8;
+            --color-primary-500: #0ea5e9;
+            --color-primary-600: #0284c7;
+            --color-primary-700: #0369a1;
+            --color-primary-800: #075985;
+            --color-primary-900: #0c4a6e;
+
+            /* 差し色（アクセントカラー：エメラルド系） */
+            --color-accent-50: #ecfdf5;
+            --color-accent-100: #d1fae5;
+            --color-accent-200: #a7f3d0;
+            --color-accent-300: #6ee7b7;
+            --color-accent-400: #34d399;
+            --color-accent-500: #10b981;
+            --color-accent-600: #059669;
+            --color-accent-700: #047857;
+            --color-accent-800: #065f46;
+            --color-accent-900: #064e3b;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-md w-full bg-white rounded shadow-sm p-8 text-center">
+            <!-- エラーコード -->
+            <div class="text-6xl font-bold text-primary-600 mb-4">404</div>
+
+            <!-- エラータイトル -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">ページが見つかりません</h1>
+
+            <!-- エラー説明 -->
+            <p class="text-gray-600 mb-8">
+                お探しのページは見つかりませんでした。<br>
+                URLが間違っているか、ページが削除された可能性があります。
+            </p>
+
+            <!-- アクション -->
+            <div class="space-y-3">
+                <a href="/" class="block w-full bg-primary-500 text-white px-6 py-3 rounded border-2 border-primary-600 hover:bg-primary-600 transition">
+                    トップページに戻る
+                </a>
+                <button onclick="history.back()" class="block w-full bg-white text-gray-700 px-6 py-3 rounded border-2 border-gray-300 hover:bg-gray-50 transition">
+                    前のページに戻る
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

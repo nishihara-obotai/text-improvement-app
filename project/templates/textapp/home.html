@@ -1,0 +1,73 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}ホーム - {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">文章改善ツール</h1>
+    
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title">文章を入力してください</h2>
+            
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">元の文章</span>
+                    </label>
+                    <textarea 
+                        name="original_text" 
+                        class="textarea textarea-bordered h-32 w-full" 
+                        placeholder="改善したい文章を入力してください..."
+                        required
+                    >{{ original_text }}</textarea>
+                </div>
+                
+                <div class="card-actions justify-end">
+                    <button 
+                        type="submit" 
+                        name="action" 
+                        value="improve" 
+                        class="btn btn-primary"
+                    >
+                        改善する
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    {% if improved_text %}
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">改善された文章</h2>
+            
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+                <input type="hidden" name="original_text" value="{{ original_text }}">
+                <input type="hidden" name="improved_text" value="{{ improved_text }}">
+                
+                <div class="form-control">
+                    <div class="p-4 bg-base-200 rounded-lg">
+                        <p class="whitespace-pre-wrap">{{ improved_text }}</p>
+                    </div>
+                </div>
+                
+                <div class="card-actions justify-end">
+                    <button 
+                        type="submit" 
+                        name="action" 
+                        value="save" 
+                        class="btn btn-success"
+                    >
+                        履歴に保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

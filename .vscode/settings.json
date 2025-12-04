@@ -1,0 +1,55 @@
+{
+  // Python設定
+  // Windows: venv/Scripts/python.exe
+  // Linux/macOS: venv/bin/python
+  "python.defaultInterpreterPath": "${workspaceFolder}/venv",
+
+  // Django設定
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+
+  // Djangoテンプレート設定
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/**/*.html": "django-html",
+    "**/templates/**/*": "django-txt",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+
+  // Ruff設定（Linter & Formatter）
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+
+  // ファイル除外設定
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true
+  },
+
+  // 検索除外設定
+  "search.exclude": {
+    "**/venv": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/db.sqlite3": true,
+    "**/.ruff_cache": true
+  },
+
+  // Task Explorer設定
+  "taskExplorer.enableSideBar": true,
+  "taskExplorer.showLastTasks": true,
+  "taskExplorer.groupSeparator": ": ",
+  "taskExplorer.groupWithSeparator": true
+}
