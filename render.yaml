@@ -3,8 +3,6 @@ services:
   - type: pserv
     name: text-improvement-db
     plan: free
-    databaseName: text_improvement_db
-    databaseUser: text_improvement_user
 
   # Webアプリケーション
   - type: web
