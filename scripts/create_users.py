@@ -4,12 +4,17 @@ render.comデプロイ時にユーザーを作成するスクリプト
 """
 
 import os
+import sys
+
+# プロジェクトディレクトリをPythonパスに追加
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'project'))
 
 import django
-from django.contrib.auth.models import User
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
+
+from django.contrib.auth.models import User
 
 
 def create_users():
