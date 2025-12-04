@@ -3,7 +3,6 @@ services:
   - type: pserv
     name: text-improvement-db
     plan: free
-    region: oregon
     databaseName: text_improvement_db
     databaseUser: text_improvement_user
 
@@ -11,7 +10,6 @@ services:
   - type: web
     name: text-improvement-app
     runtime: python
-    region: oregon
     plan: free
     branch: main
     buildCommand: "./build.sh"
